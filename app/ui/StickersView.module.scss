@@ -1,0 +1,34 @@
+.stickers-view {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+}
+
+.stickers-container {
+  overflow-y: auto;
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+}
+
+.no-data {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+
+  div {
+    //@include typography.title-l;
+    line-height: 150%;
+    display: grid;
+    place-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+}
