@@ -1,0 +1,28 @@
+@mixin all-document {
+  font-family: Manrope, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+}
+
+@mixin body-m {
+  font-size: 1rem;
+}
+
+@mixin body-s {
+  font-size: 0.9375rem;
+  line-height: 1rem;
+}
+
+@mixin title-m {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
+
+@mixin title-l {
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
+
+
