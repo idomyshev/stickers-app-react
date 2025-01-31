@@ -1,6 +1,6 @@
 'use client'
 
-import classes from './page.module.scss';
+import styles from './page.module.scss';
 import {useEffect, useState} from "react";
 import {storageKey} from "@/settings/storage";
 import {ISticker} from "@/types";
@@ -39,7 +39,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={classes.container}>
+        <div className={styles.container}>
             <StickersView editMode={true} stickers={stickers}/>
         </div>
     );

@@ -1,4 +1,5 @@
-import type { ITab } from "~/types";
+import {ITab} from "@/types";
+
 
 export const tabs: ITab[] = [
   {

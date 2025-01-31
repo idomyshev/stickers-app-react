@@ -1,4 +1,4 @@
-import classes from './StickersView.module.scss';
+import styles from './StickersView.module.scss';
 import BasicButton from "@/app/ui/basic/BasicButton";
 import {ISticker} from "@/types";
 import {Sticker} from "@/app/ui/Sticker";
@@ -7,8 +7,8 @@ import AddIcon from "@/app/ui/icons/icons/AddIcon";
 
 export const StickersView = ({editMode, stickers}: {editMode: boolean, stickers: ISticker[]}) => {
     return (
-        <div className={classes.stickersView}>
-        <div className={classes.actionsPanel}>
+        <div className={styles.stickersView}>
+        <div className={styles.actionsPanel}>
             {
                 <BasicButton
                     Icon={AddIcon}
@@ -19,8 +19,8 @@ export const StickersView = ({editMode, stickers}: {editMode: boolean, stickers:
             }
         </div>
         {stickers.length &&
-            <div className={classes.stickersContainer}>
-                <div className={classes.stickersContainer__inner}>
+            <div className={styles.stickersContainer}>
+                <div className={styles.stickersContainer__inner}>
                     {stickers.map((sticker) => (
                     <Sticker
                         key={sticker.id}
