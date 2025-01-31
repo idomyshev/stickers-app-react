@@ -8,8 +8,9 @@ import {StickersView} from "@/app/ui/StickersView";
 
 export default function Home() {
     const [stickers, setStickers] = useState<ISticker[]>([
-        {id: "123", text: "My first sticker"},
-        {id: "234", text: "Second sticker"}]
+        // {id: "123", text: "My first sticker"},
+        // {id: "234", text: "Second sticker"}
+        ]
     );
     const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
 
@@ -40,6 +41,7 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
+            <div></div>
             <StickersView editMode={true} stickers={stickers}/>
         </div>
     );
