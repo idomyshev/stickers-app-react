@@ -2,6 +2,7 @@ import {BasicDrawer} from "@/app/ui/basic/BasicDrawer";
 import {useImperativeHandle, useMemo, useRef, useState} from "react";
 import {lang} from "@/lang";
 import {ISticker, IStickerForm} from "@/types";
+import {BasicTextArea} from "@/app/ui/basic/BasicTextArea";
 
 const initialDrawerState = {
     text: "",
@@ -84,6 +85,13 @@ export const StickerDrawer = ({ref}) => {
         closeDrawer();
     };
 
+    const handleChangeText = (value: string) => {
+        setCurrentDrawerState((state) => ({
+            ...state,
+            text: value
+        }))
+    }
+
 
     return <BasicDrawer
         ref={basicDrawerRef}
@@ -93,6 +101,10 @@ export const StickerDrawer = ({ref}) => {
         onClickCancel={handleClickCancel}
         onClickAction={handleAction}
     >
-        BasicTextArea
+        <BasicTextArea
+            value={currentDrawerState.text}
+            placeholder={lang.enterTextForSticker}
+            onChange={handleChangeText}
+        />
     </BasicDrawer>
 }

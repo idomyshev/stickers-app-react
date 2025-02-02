@@ -6,7 +6,7 @@ import styles from './BasicDrawer.module.scss';
 import {BasicButton} from "@/app/ui/basic/BasicButton";
 import {lang} from "@/lang";
 
-export const BasicDrawer = ({ref, title, actionDisabled, actionButtonLabel, onClickCancel, onClickAction }) => {
+export const BasicDrawer = ({title, actionDisabled, actionButtonLabel, onClickCancel, onClickAction, ref, children }) => {
     const [visible, setVisible] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -31,7 +31,7 @@ export const BasicDrawer = ({ref, title, actionDisabled, actionButtonLabel, onCl
             <div className={styles.basicDrawerInner}>
                 <div className={styles.basicDrawerTitle}>{ title }</div>
                 <div className={styles.basicDrawerBody}>
-                    <slot />
+                    {children}
                 </div>
                 <div className={styles.basicDrawerButtons}>
                     <BasicButton label={lang.cancel} onClick={handleClickCancel} />
