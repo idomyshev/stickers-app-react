@@ -12,7 +12,7 @@ interface ComponentProps {
     primary?: boolean;
 }
 
-export default function BasicButton({ Icon, onClick, width = "20px", height = "20px", label, disabled, primary }: ComponentProps) {
+export const BasicButton = ({ Icon, onClick, width = "20px", height = "20px", label, disabled, primary }: ComponentProps) => {
     const handleClick  = () => {
         if (typeof onClick === 'function') {
             onClick();

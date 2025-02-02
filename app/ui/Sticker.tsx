@@ -1,6 +1,6 @@
 import styles from "./Sticker.module.scss";
 import {ISticker} from "@/types";
-import BasicButton from "@/app/ui/basic/BasicButton";
+import {BasicButton} from "@/app/ui/basic/BasicButton";
 import DeleteIcon from "@/app/ui/icons/icons/DeleteIcon";
 import EditIcon from "@/app/ui/icons/icons/EditIcon";
 

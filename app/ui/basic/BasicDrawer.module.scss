@@ -1,0 +1,61 @@
+@use "scss/colors";
+@use "scss/z-indexes";
+@use "scss/typography";
+
+.basicDrawer {
+  z-index: z-indexes.$basic-drawer;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  background-color: colors.$basic-drawer-overlay-background;
+
+  &Inner {
+    justify-self: end;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 30vw;
+    height: 100vh;
+    min-width: 300px;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 20px;
+    gap: 20px;
+    background: colors.$basic-drawer-background;
+    border-left: 1px solid colors.$basic-drawer-border;
+    box-shadow: -5px 0 10px colors.$basic-drawer-shadow;
+    transform: translateX(0); // Скрыто за экраном
+    transition: transform 3s ease-in-out;
+  }
+
+  &__title {
+    @include typography.title-m;
+  }
+
+  &__body {
+    overflow-y: auto;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}
+
+.drawerEnter {
+  transform: translateX(100%);
+}
+.drawerEnterActive {
+  transform: translateX(0%);
+}
+
+/* Выход */
+.drawerExit {
+  transform: translateX(0%);
+}
+.drawerExitActive {
+  transform: translateX(100%);
+}

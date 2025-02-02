@@ -5,14 +5,16 @@ import {useEffect, useState} from "react";
 import {storageKey} from "@/settings/storage";
 import {ISticker} from "@/types";
 import {StickersView} from "@/app/ui/StickersView";
+import {useStickersStore} from "@/store/stickersStore";
 
 export default function Home() {
+    const stopDataLoading = useStickersStore((state) => state.stopDataLoading);
+
     const [stickers, setStickers] = useState<ISticker[]>([
         // {id: "123", text: "My first sticker"},
         // {id: "234", text: "Second sticker"}
         ]
     );
-    const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
 
     const loadDatabase = () => {
         const json = localStorage.getItem(storageKey);
@@ -25,10 +27,8 @@ export default function Home() {
             }
         }
 
-        setIsDataLoading(false);
+        stopDataLoading();
     };
-
-    //setStickers([{name: "My first sticker"}])
 
     useEffect(() => {
         loadDatabase();
