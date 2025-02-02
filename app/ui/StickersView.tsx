@@ -9,9 +9,9 @@ import {useRef} from "react";
 import {StickerDrawer} from "@/app/ui/drawers/StickerDrawer";
 
 
-export const StickersView = ({editMode, stickers}: {editMode: boolean, stickers: ISticker[]}) => {
+export const StickersView = ({editMode}: {editMode: boolean}) => {
     const isDataLoading = useStickersStore((state) => state.isDataLoading);
-    const stopDataLoading = useStickersStore((state) => state.stopDataLoading);
+    const stickers = useStickersStore((state) => state.stickers);
 
     const drawerRef = useRef(false);
 

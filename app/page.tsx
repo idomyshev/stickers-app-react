@@ -8,27 +8,7 @@ import {StickersView} from "@/app/ui/StickersView";
 import {useStickersStore} from "@/store/stickersStore";
 
 export default function Home() {
-    const stopDataLoading = useStickersStore((state) => state.stopDataLoading);
-
-    const [stickers, setStickers] = useState<ISticker[]>([
-        // {id: "123", text: "My first sticker"},
-        // {id: "234", text: "Second sticker"}
-        ]
-    );
-
-    const loadDatabase = () => {
-        const json = localStorage.getItem(storageKey);
-
-        if (json) {
-            const parsedJson = JSON.parse(json);
-
-            if (parsedJson && parsedJson.length) {
-                setStickers(parsedJson);
-            }
-        }
-
-        stopDataLoading();
-    };
+    const loadDatabase = useStickersStore((state) => state.loadDatabase);
 
     useEffect(() => {
         loadDatabase();
@@ -42,7 +22,7 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <div></div>
-            <StickersView editMode={true} stickers={stickers}/>
+            <StickersView editMode={true}/>
         </div>
     );
 }

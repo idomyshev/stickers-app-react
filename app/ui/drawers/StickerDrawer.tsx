@@ -3,12 +3,14 @@ import {useImperativeHandle, useMemo, useRef, useState} from "react";
 import {lang} from "@/lang";
 import {ISticker, IStickerForm} from "@/types";
 import {BasicTextArea} from "@/app/ui/basic/BasicTextArea";
+import {useStickersStore} from "@/store/stickersStore";
 
 const initialDrawerState = {
     text: "",
 };
 
 export const StickerDrawer = ({ref}) => {
+    const addSticker = useStickersStore((state) => state.addSticker);
     const basicDrawerRef = useRef<boolean>(false);
     const [instanceId, setInstanceId] = useState<string>(null);
     const [currentDrawerState, setCurrentDrawerState] = useState<IStickerForm>({
@@ -79,7 +81,7 @@ export const StickerDrawer = ({ref}) => {
             //editSticker({ id: instanceId.value, ...currentDrawerState });
         } else {
             console.log('add')
-            //addSticker({ ...currentDrawerState });
+            addSticker({ ...currentDrawerState });
         }
 
         closeDrawer();
