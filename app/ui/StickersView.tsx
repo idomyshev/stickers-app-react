@@ -5,8 +5,8 @@ import { Sticker } from "@/app/ui/Sticker";
 import AddIcon from "@/app/ui/icons/icons/AddIcon";
 import { useStickersStore } from "@/store/stickersStore";
 import { lang } from "@/lang";
-import {BasicDrawer} from "@/app/ui/basic/BasicDrawer";
 import {useRef} from "react";
+import {StickerDrawer} from "@/app/ui/drawers/StickerDrawer";
 
 
 export const StickersView = ({editMode, stickers}: {editMode: boolean, stickers: ISticker[]}) => {
@@ -21,7 +21,7 @@ export const StickersView = ({editMode, stickers}: {editMode: boolean, stickers:
     }
 
     return <>
-        <BasicDrawer ref={drawerRef}/>
+        <StickerDrawer ref={drawerRef}/>
         <div className={styles.stickersView}>
             <div className={styles.actionsPanel}>
                 {

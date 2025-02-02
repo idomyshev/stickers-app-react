@@ -3,33 +3,47 @@
 import {createPortal} from "react-dom";
 import {ReactNode, useImperativeHandle, useRef, useState} from "react";
 import styles from './BasicDrawer.module.scss';
-import {CSSTransition} from "react-transition-group";
+import {BasicButton} from "@/app/ui/basic/BasicButton";
+import {lang} from "@/lang";
 
-export const BasicDrawer = ({ref}) => {
+export const BasicDrawer = ({ref, title, actionDisabled, actionButtonLabel, onClickCancel, onClickAction }) => {
     const [visible, setVisible] = useState(false);
-    const nodeRef = useRef(null);
 
     useImperativeHandle(ref, () => ({
         open: () => setVisible(true),
         close: () => setVisible(false),
     }));
 
+    const handleClickCancel = () => {
+        if (typeof onClickCancel === 'function') {
+            onClickCancel();
+        }
+    };
+
+    const handleClickAction = () => {
+        if (!actionDisabled) {
+            onClickAction();
+        }
+    };
+
     return createPortal(
-        <CSSTransition in={visible} timeout={300} classNames={{
-            enter: styles.drawerEnter,
-            enterActive: styles.drawerEnterActive,
-            exit: styles.drawerExit,
-            exitActive: styles.drawerExitActive
-                }}
-               unmountOnExit
-               nodeRef={nodeRef}>
-            <div className={styles.basicDrawer} ref={nodeRef}>
-                <div className={styles.basicDrawerInner}>
-                    Basic Drawer
+        visible && <div className={styles.basicDrawer}>
+            <div className={styles.basicDrawerInner}>
+                <div className={styles.basicDrawerTitle}>{ title }</div>
+                <div className={styles.basicDrawerBody}>
+                    <slot />
+                </div>
+                <div className={styles.basicDrawerButtons}>
+                    <BasicButton label={lang.cancel} onClick={handleClickCancel} />
+                    <BasicButton
+                        label={actionButtonLabel}
+                        disabled={actionDisabled}
+                        onClick={handleClickAction}
+                        primary
+                    />
                 </div>
             </div>
-        </CSSTransition> as ReactNode,
-
+        </div> as ReactNode,
         document.body
     )
 }

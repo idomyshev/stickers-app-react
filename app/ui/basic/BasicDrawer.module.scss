@@ -30,32 +30,17 @@
     transition: transform 3s ease-in-out;
   }
 
-  &__title {
+  &Title {
     @include typography.title-m;
   }
 
-  &__body {
+  &Body {
     overflow-y: auto;
   }
 
-  &__buttons {
+  &Buttons {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
   }
-}
-
-.drawerEnter {
-  transform: translateX(100%);
-}
-.drawerEnterActive {
-  transform: translateX(0%);
-}
-
-/* Выход */
-.drawerExit {
-  transform: translateX(0%);
-}
-.drawerExitActive {
-  transform: translateX(100%);
 }
