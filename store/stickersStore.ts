@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import {ISticker, IStickerForm} from "@/types";
 import {storageKey} from "@/settings/storage";
 import { v4 as uuidv4 } from "uuid";
+import {devtools} from "zustand/middleware";
 
 interface StickersStore {
     stickers: ISticker[];
@@ -12,9 +13,10 @@ interface StickersStore {
     loadDatabase: () => void;
     addSticker: (item: IStickerForm) => void;
     editSticker: (item: ISticker) => void;
+    deleteSticker: (item: ISticker) => void;
 }
 
-export const useStickersStore = create<StickersStore>((set, get) => ({
+export const useStickersStore = create<StickersStore>(devtools((set, get) => ({
     stickers: [],
     isDataLoading: true,
     startDataLoading: () => set({ isDataLoading: true }),
@@ -38,20 +40,26 @@ export const useStickersStore = create<StickersStore>((set, get) => ({
         stopDataLoading();
     },
     addSticker: (item: IStickerForm) => {
-        const {stickers, updateDatabase} = get();
-        stickers.push({ id: uuidv4(), ...item });
-        updateDatabase();
+        const newSticker = { id: uuidv4(), ...item };
+        set(({stickers}) => ({
+            stickers: [...stickers, newSticker]
+        }));
+        get().updateDatabase();
     },
-    editSticker:(item: ISticker) => {
-        const { stickers, updateDatabase } = get();
+    editSticker: (item: ISticker) => {
         const { id, ...form } = item;
-        const foundItem = stickers.find((el) => el.id === id);
-
-        if (foundItem) {
-            Object.assign(foundItem, form);
-        }
-
-        updateDatabase();
+        set(({ stickers }) => ({
+            stickers: stickers.map((el) =>
+                el.id === id ? { ...el, ...form } : el
+            )
+        }));
+        get().updateDatabase();
+    },
+    deleteSticker: (item: ISticker) => {
+        set(({stickers}) => {
+            const index = stickers.findIndex((el) => item.id === el.id);
+            stickers.splice(index, 1);
+        });
+        get().updateDatabase();
     }
-}) satisfies StickersStore
-)
+}) satisfies StickersStore))

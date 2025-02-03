@@ -5,23 +5,38 @@ import { Sticker } from "@/app/ui/Sticker";
 import AddIcon from "@/app/ui/icons/icons/AddIcon";
 import { useStickersStore } from "@/store/stickersStore";
 import { lang } from "@/lang";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {StickerDrawer} from "@/app/ui/drawers/StickerDrawer";
 
 
 export const StickersView = ({editMode}: {editMode: boolean}) => {
     const isDataLoading = useStickersStore((state) => state.isDataLoading);
     const stickers = useStickersStore((state) => state.stickers);
+    const [selectedInstance, setSelectedInstance] = useState<ISticker | null>(null);
 
-    const drawerRef = useRef(false);
+    const stickerDrawerRef = useRef(false);
 
     const handleClickCreate = () => {
-        console.log('create');
-        drawerRef.current?.open();
+        stickerDrawerRef.current?.open();
     }
 
+    const handleClickEdit = (item: ISticker) => {
+        stickerDrawerRef.current?.open(item);
+    };
+
+    const handleClickDelete = (item: ISticker) => {
+        console.log('view delete', item)
+        setSelectedInstance(item);
+        //confirmDeleteModalRef.current?.open();
+    };
+
+    const handleCancelDelete = () => {
+        setSelectedInstance(null);
+        //confirmDeleteModalRef.current?.close();
+    };
+
     return <>
-        <StickerDrawer ref={drawerRef}/>
+        <StickerDrawer ref={stickerDrawerRef}/>
         <div className={styles.stickersView}>
             <div className={styles.actionsPanel}>
                 {
@@ -41,8 +56,8 @@ export const StickersView = ({editMode}: {editMode: boolean}) => {
                             key={sticker.id}
                             item={sticker}
                             editMode={editMode}
-                            // @click:delete="handleClickDelete"
-                            // @click:edit="handleClickEdit"
+                            onClickDelete={handleClickDelete}
+                            onClickEdit={handleClickEdit}
                             />
                         ))}
                     </div>

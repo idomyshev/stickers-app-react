@@ -4,13 +4,13 @@ import {BasicButton} from "@/app/ui/basic/BasicButton";
 import DeleteIcon from "@/app/ui/icons/icons/DeleteIcon";
 import EditIcon from "@/app/ui/icons/icons/EditIcon";
 
-export const Sticker = ({editMode, item}: {editMode: boolean, item: ISticker}) => {
+export const Sticker = ({editMode, item, onClickDelete, onClickEdit}: {editMode: boolean, item: ISticker}) => {
     const handleEdit = () => {
-        console.log("edit", item)
+        onClickEdit(item);
     }
 
     const handleDelete = () => {
-        console.log("delete", item)
+        onClickDelete(item);
     }
 
     return <div className={styles.sticker}>

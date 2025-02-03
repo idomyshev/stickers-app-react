@@ -11,6 +11,7 @@ const initialDrawerState = {
 
 export const StickerDrawer = ({ref}) => {
     const addSticker = useStickersStore((state) => state.addSticker);
+    const editSticker = useStickersStore((state) => state.editSticker);
     const basicDrawerRef = useRef<boolean>(false);
     const [instanceId, setInstanceId] = useState<string>(null);
     const [currentDrawerState, setCurrentDrawerState] = useState<IStickerForm>({
@@ -37,12 +38,12 @@ export const StickerDrawer = ({ref}) => {
 
     useImperativeHandle(ref, () => ({
         open: (item?: ISticker) => {
-            // if (item) {
-            //     const { id, ...form } = item;
-            //     setInstanceId(id);
-            //     setCurrentDrawerState(form);
-            //     setSavedDrawerState(form);
-            // }
+            if (item) {
+                const { id, ...form } = item;
+                setInstanceId(id);
+                setCurrentDrawerState(form);
+                setSavedDrawerState(form);
+            }
 
             basicDrawerRef.current?.open();
         },
@@ -77,10 +78,8 @@ export const StickerDrawer = ({ref}) => {
         });
 
         if (instanceId) {
-            console.log('edit')
-            //editSticker({ id: instanceId.value, ...currentDrawerState });
+            editSticker({ id: instanceId, ...currentDrawerState });
         } else {
-            console.log('add')
             addSticker({ ...currentDrawerState });
         }
 
@@ -88,8 +87,7 @@ export const StickerDrawer = ({ref}) => {
     };
 
     const handleChangeText = (value: string) => {
-        setCurrentDrawerState((state) => ({
-            ...state,
+        setCurrentDrawerState(() => ({
             text: value
         }))
     }
