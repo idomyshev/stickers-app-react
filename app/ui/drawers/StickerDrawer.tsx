@@ -4,6 +4,7 @@ import {lang} from "@/lang";
 import {ISticker, IStickerForm} from "@/types";
 import {BasicTextArea} from "@/app/ui/basic/BasicTextArea";
 import {useStickersStore} from "@/store/stickersStore";
+import {BasicModal} from "@/app/ui/basic/BasicModal";
 
 const initialDrawerState = {
     text: "",
@@ -13,6 +14,7 @@ export const StickerDrawer = ({ref}) => {
     const addSticker = useStickersStore((state) => state.addSticker);
     const editSticker = useStickersStore((state) => state.editSticker);
     const basicDrawerRef = useRef<boolean>(false);
+    const confirmDiscardModalRef = useRef<boolean>(false);
     const [instanceId, setInstanceId] = useState<string>(null);
     const [currentDrawerState, setCurrentDrawerState] = useState<IStickerForm>({
         ...initialDrawerState,
@@ -63,7 +65,7 @@ export const StickerDrawer = ({ref}) => {
 
     const handleClickCancel = () => {
         if (isChanged) {
-            //confirmDiscardModalRef.value?.open();
+            confirmDiscardModalRef.current?.open();
         } else {
             closeDrawer();
         }
@@ -92,19 +94,27 @@ export const StickerDrawer = ({ref}) => {
         }))
     }
 
-
-    return <BasicDrawer
-        ref={basicDrawerRef}
-        title={instanceId ? lang.editSticker : lang.createSticker}
-        actionButtonLabel={instanceId ? lang.update : lang.create}
-        actionDisabled={!isValid}
-        onClickCancel={handleClickCancel}
-        onClickAction={handleAction}
-    >
-        <BasicTextArea
-            value={currentDrawerState.text}
-            placeholder={lang.enterTextForSticker}
-            onChange={handleChangeText}
+    return <>
+        <BasicDrawer
+            ref={basicDrawerRef}
+            title={instanceId ? lang.editSticker : lang.createSticker}
+            actionButtonLabel={instanceId ? lang.update : lang.create}
+            actionDisabled={!isValid}
+            onClickCancel={handleClickCancel}
+            onClickAction={handleAction}
+        >
+            <BasicTextArea
+                value={currentDrawerState.text}
+                placeholder={lang.enterTextForSticker}
+                onChange={handleChangeText}
+            />
+        </BasicDrawer>
+        <BasicModal
+            ref={confirmDiscardModalRef}
+            title={lang.doYouConfirmDiscardChanges}
+            text={lang.thisActionCannotBeUndone}
+            onClickConfirm="handleConfirmDiscard"
+            onClickCancel="handleCancelDiscard"
         />
-    </BasicDrawer>
+    </>;
 }

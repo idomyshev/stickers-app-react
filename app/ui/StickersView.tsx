@@ -7,12 +7,15 @@ import { useStickersStore } from "@/store/stickersStore";
 import { lang } from "@/lang";
 import {useRef, useState} from "react";
 import {StickerDrawer} from "@/app/ui/drawers/StickerDrawer";
+import {BasicModal} from "@/app/ui/basic/BasicModal";
 
 
 export const StickersView = ({editMode}: {editMode: boolean}) => {
     const isDataLoading = useStickersStore((state) => state.isDataLoading);
     const stickers = useStickersStore((state) => state.stickers);
+    const deleteSticker = useStickersStore((state) => state.deleteSticker);
     const [selectedInstance, setSelectedInstance] = useState<ISticker | null>(null);
+    const confirmDeleteModalRef = useRef<boolean>(false);
 
     const stickerDrawerRef = useRef(false);
 
@@ -25,18 +28,34 @@ export const StickersView = ({editMode}: {editMode: boolean}) => {
     };
 
     const handleClickDelete = (item: ISticker) => {
-        console.log('view delete', item)
         setSelectedInstance(item);
-        //confirmDeleteModalRef.current?.open();
+        confirmDeleteModalRef.current?.open();
     };
 
     const handleCancelDelete = () => {
         setSelectedInstance(null);
-        //confirmDeleteModalRef.current?.close();
+        confirmDeleteModalRef.current?.close();
+    };
+
+    const handleConfirmDelete = () => {
+        if (!selectedInstance) {
+            throw new Error("handleConfirmDelete: selectedInstance is not defined");
+        }
+
+        deleteSticker(selectedInstance);
+        setSelectedInstance(null);
+        confirmDeleteModalRef.current?.close();
     };
 
     return <>
         <StickerDrawer ref={stickerDrawerRef}/>
+        <BasicModal
+            ref={confirmDeleteModalRef}
+            title={lang.doYouConfirmDeleteSticker}
+            text={lang.thisActionCannotBeUndone}
+            onClickConfirm={handleConfirmDelete}
+            onClickCancel={handleCancelDelete}
+        />
         <div className={styles.stickersView}>
             <div className={styles.actionsPanel}>
                 {

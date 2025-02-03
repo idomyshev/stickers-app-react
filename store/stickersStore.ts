@@ -56,10 +56,9 @@ export const useStickersStore = create<StickersStore>(devtools((set, get) => ({
         get().updateDatabase();
     },
     deleteSticker: (item: ISticker) => {
-        set(({stickers}) => {
-            const index = stickers.findIndex((el) => item.id === el.id);
-            stickers.splice(index, 1);
-        });
+        set(({stickers}) => ({
+            stickers: stickers.filter((el) => el.id !== item.id)
+        }));
         get().updateDatabase();
     }
 }) satisfies StickersStore))
