@@ -1,7 +1,7 @@
 'use client'
 
 import {createPortal} from "react-dom";
-import {ReactNode, useImperativeHandle, useRef, useState} from "react";
+import {ReactNode, useImperativeHandle, useState} from "react";
 import styles from './BasicDrawer.module.scss';
 import {BasicButton} from "@/app/ui/basic/BasicButton";
 import {lang} from "@/lang";

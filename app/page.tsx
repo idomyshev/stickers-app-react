@@ -1,9 +1,8 @@
 'use client'
 
 import styles from './page.module.scss';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {storageKey} from "@/settings/storage";
-import {ISticker} from "@/types";
 import {StickersView} from "@/app/ui/StickersView";
 import {useStickersStore} from "@/store/stickersStore";
 
