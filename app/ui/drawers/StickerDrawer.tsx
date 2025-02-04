@@ -94,6 +94,15 @@ export const StickerDrawer = ({ref}) => {
         }))
     }
 
+    const handleCancelDiscard = () => {
+        confirmDiscardModalRef.current?.close();
+    };
+
+    const handleConfirmDiscard = () => {
+        confirmDiscardModalRef.current?.close();
+        closeDrawer();
+    };
+
     return <>
         <BasicDrawer
             ref={basicDrawerRef}
@@ -113,8 +122,8 @@ export const StickerDrawer = ({ref}) => {
             ref={confirmDiscardModalRef}
             title={lang.doYouConfirmDiscardChanges}
             text={lang.thisActionCannotBeUndone}
-            onClickConfirm="handleConfirmDiscard"
-            onClickCancel="handleCancelDiscard"
+            onClickConfirm={handleConfirmDiscard}
+            onClickCancel={handleCancelDiscard}
         />
     </>;
 }
