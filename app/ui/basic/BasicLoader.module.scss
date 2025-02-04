@@ -1,7 +1,8 @@
-//@use "scss/z-indexes";
+@use "scss/z-indexes";
+@use "scss/colors";
 
 .basicLoader {
-  //z-index: z-indexes.$basic-loader;
+  z-index: z-indexes.$basic-loader;
   position: fixed;
   top: 0;
   left: 0;
@@ -9,4 +10,5 @@
   height: 100vh;
   display: grid;
   place-items: center;
+  background-color: colors.$basic-loader-overlay-background;
 }

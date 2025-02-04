@@ -59,7 +59,7 @@ export const StickersView = ({editMode}: {editMode: boolean}) => {
         <div className={styles.stickersView}>
             <div className={styles.actionsPanel}>
                 {
-                    <BasicButton
+                    editMode && <BasicButton
                         Icon={AddIcon}
                         width="30px"
                         height="30px"

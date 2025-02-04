@@ -3,11 +3,11 @@ import {ITab} from "@/types";
 
 export const tabs: ITab[] = [
   {
-    name: "index",
+    pathName: "/",
     label: "Dashboard",
   },
   {
-    name: "settings",
+    pathName: "/settings",
     label: "Settings",
   },
 ];

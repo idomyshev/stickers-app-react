@@ -1,6 +1,6 @@
 export interface ITab {
   label: string;
-  name: string;
+  pathName: string;
 }
 
 export interface ISticker {
