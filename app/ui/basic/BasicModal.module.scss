@@ -1,0 +1,40 @@
+@use "scss/z-indexes";
+@use "scss/colors";
+@use "scss/typography";
+
+.basicModal {
+  z-index: z-indexes.$basic-modal;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: colors.$basic-modal-overlay-background;
+
+  &Inner {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 20px;
+    width: 250px;
+    min-height: 150px;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: colors.$basic-modal-background;
+  }
+}
+
+.title {
+  @include typography.title-m;
+}
+
+.body {
+  // Add styles if needed.
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

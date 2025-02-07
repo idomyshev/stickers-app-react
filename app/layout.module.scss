@@ -1,0 +1,9 @@
+.appContainer {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0;
+}
