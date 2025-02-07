@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./BasicButton.module.scss";
 import classNames from "classnames";
 
-interface ComponentProps {
+interface Props {
     Icon?: any;
     onClick?: () => void;
     width?: string;
@@ -12,7 +12,8 @@ interface ComponentProps {
     primary?: boolean;
 }
 
-export const BasicButton = ({ Icon, onClick, width = "20px", height = "20px", label, disabled, primary }: ComponentProps) => {
+export const BasicButton = ({ Icon, onClick, width = "20px", height = "20px", label, disabled, primary }: Props) => {
+
     const handleClick  = () => {
         if (typeof onClick === 'function') {
             onClick();
@@ -29,7 +30,7 @@ export const BasicButton = ({ Icon, onClick, width = "20px", height = "20px", la
             ] as any)}
             onClick={handleClick}
         >
-            {label && label}
+            {label}
             {Icon && <Icon style={{width, height}} />}
         </div>
     )

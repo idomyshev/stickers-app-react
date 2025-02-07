@@ -15,7 +15,7 @@ export const StickersView = ({editMode}: {editMode: boolean}) => {
     const stickers = useStickersStore((state) => state.stickers);
     const deleteSticker = useStickersStore((state) => state.deleteSticker);
     const [selectedInstance, setSelectedInstance] = useState<ISticker | null>(null);
-    const confirmDeleteModalRef = useRef<boolean>(false);
+    const confirmDeleteModalRef = useRef<HTMLElement | null>(null);
 
     const stickerDrawerRef = useRef(false);
 

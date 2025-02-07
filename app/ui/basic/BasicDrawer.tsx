@@ -6,7 +6,17 @@ import styles from './BasicDrawer.module.scss';
 import {BasicButton} from "@/app/ui/basic/BasicButton";
 import {lang} from "@/lang";
 
-export const BasicDrawer = ({title, actionDisabled, actionButtonLabel, onClickCancel, onClickAction, ref, children }) => {
+interface Props {
+    title: string;
+    actionDisabled?: boolean;
+    actionButtonLabel: string,
+    onClickCancel: () => void;
+    onClickAction: () => void;
+    children: React.ReactNode;
+    ref: React.RefObject<any>;
+}
+
+export const BasicDrawer = ({title, actionDisabled, actionButtonLabel, onClickCancel, onClickAction, children, ref }: Props) => {
     const [visible, setVisible] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -26,15 +36,20 @@ export const BasicDrawer = ({title, actionDisabled, actionButtonLabel, onClickCa
         }
     };
 
+    if (typeof document === "undefined") {
+        return null;
+    }
+
     return createPortal(
-        visible && <div className={styles.basicDrawer}>
+visible &&
+        <div className={styles.basicDrawer}>
             <div className={styles.basicDrawerInner}>
-                <div className={styles.basicDrawerTitle}>{ title }</div>
+                <div className={styles.basicDrawerTitle}>{title}</div>
                 <div className={styles.basicDrawerBody}>
                     {children}
                 </div>
                 <div className={styles.basicDrawerButtons}>
-                    <BasicButton label={lang.cancel} onClick={handleClickCancel} />
+                    <BasicButton label={lang.cancel} onClick={handleClickCancel}/>
                     <BasicButton
                         label={actionButtonLabel}
                         disabled={actionDisabled}
@@ -44,6 +59,6 @@ export const BasicDrawer = ({title, actionDisabled, actionButtonLabel, onClickCa
                 </div>
             </div>
         </div> as ReactNode,
-        document.body
+        document.body as any
     )
 }

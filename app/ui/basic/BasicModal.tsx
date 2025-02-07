@@ -1,4 +1,4 @@
-import {ReactNode, useImperativeHandle, useState} from "react";
+import React, {ReactNode, useImperativeHandle, useState} from "react";
 import {createPortal} from "react-dom";
 import styles from "@/app/ui/basic/BasicModal.module.scss";
 import {BasicButton} from "@/app/ui/basic/BasicButton";
@@ -9,7 +9,7 @@ interface Props {
   text: string;
   onClickCancel: () => void;
   onClickConfirm: () => void;
-  ref: any;
+  ref: React.RefObject<any>;
 }
 
 export const BasicModal = ({ title, text, onClickCancel, onClickConfirm, ref}: Props) => {
@@ -30,6 +30,10 @@ export const BasicModal = ({ title, text, onClickCancel, onClickConfirm, ref}: P
     if (typeof onClickConfirm === 'function') {
       onClickConfirm();
     }
+  }
+
+  if (typeof document === "undefined") {
+    return null;
   }
 
   return createPortal(

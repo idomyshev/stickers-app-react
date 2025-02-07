@@ -32,8 +32,8 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased` }
             >
                 <div className={styles.appContainer}>
-                <BasicTabs items={tabs} />
-                {children}
+                    <BasicTabs items={tabs} />
+                    {children}
                 </div>
                 <ClientWrapper/>
                 <BasicLoader/>

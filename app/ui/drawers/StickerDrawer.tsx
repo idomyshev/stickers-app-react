@@ -1,3 +1,5 @@
+'use client'
+
 import {BasicDrawer} from "@/app/ui/basic/BasicDrawer";
 import {useImperativeHandle, useMemo, useRef, useState} from "react";
 import {lang} from "@/lang";
@@ -13,8 +15,8 @@ const initialDrawerState = {
 export const StickerDrawer = ({ref}) => {
     const addSticker = useStickersStore((state) => state.addSticker);
     const editSticker = useStickersStore((state) => state.editSticker);
-    const basicDrawerRef = useRef<boolean>(false);
-    const confirmDiscardModalRef = useRef<boolean>(false);
+    const basicDrawerRef = useRef<HTMLElement | null>(null);
+    const confirmDiscardModalRef = useRef<HTMLElement | null>(null);
     const [instanceId, setInstanceId] = useState<string>(null);
     const [currentDrawerState, setCurrentDrawerState] = useState<IStickerForm>({
         ...initialDrawerState,
